@@ -10,4 +10,10 @@ describe("Search", () => {
 
     expect(screen.getByTestId("search")).toBeInTheDocument();
   });
+
+  it("should render a form", () => {
+    render(<Search />);
+
+    expect(screen.getByRole("form")).toBeInTheDocument();
+  });
 });
