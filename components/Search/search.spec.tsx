@@ -1,5 +1,6 @@
 // Packages
 import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 // Components
 import Search from ".";
@@ -21,5 +22,19 @@ describe("Search", () => {
     await fireEvent.submit(form);
 
     expect(doSearch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call props.doSearch() with the user input", async () => {
+    render(<Search doSearch={doSearch} />);
+
+    const textSubmitted = 'some text here'
+
+    const form = screen.getByRole('form')
+    const input = screen.getByRole('textbox')
+
+    await userEvent.type(input, textSubmitted)
+    await fireEvent.submit(form)
+
+    expect(doSearch).toHaveBeenCalledWith(textSubmitted)
   });
 });
