@@ -7,23 +7,30 @@ import Search from ".";
 
 const doSearch = jest.fn();
 
+const setup = () => {
+  const utils = render(<Search doSearch={doSearch} />);
+
+  const form = screen.getByRole("form");
+  const input = screen.getByRole("searchbox");
+
+  return { form, input, ...utils };
+};
+
 describe("Search", () => {
   it("should render a form", () => {
-    render(<Search doSearch={doSearch} />);
+    const { form } = setup();
 
-    expect(screen.getByRole("form")).toBeInTheDocument();
+    expect(form).toBeInTheDocument();
   });
 
   it("should render a input type equals search", () => {
-    render(<Search doSearch={doSearch} />);
+    const { input } = setup();
 
-    expect(screen.getByRole("searchbox")).toHaveProperty("type", "search");
+    expect(input).toHaveProperty("type", "search");
   });
 
   it("should call props.doSearch() when form is submitted", async () => {
-    render(<Search doSearch={doSearch} />);
-
-    const form = screen.getByRole("form");
+    const { form } = setup();
 
     await fireEvent.submit(form);
 
@@ -31,12 +38,9 @@ describe("Search", () => {
   });
 
   it("should call props.doSearch() with the user input", async () => {
-    render(<Search doSearch={doSearch} />);
+    const { form, input } = setup();
 
     const textSubmitted = "some text here";
-
-    const form = screen.getByRole("form");
-    const input = screen.getByRole("searchbox");
 
     await userEvent.type(input, textSubmitted);
     await fireEvent.submit(form);
