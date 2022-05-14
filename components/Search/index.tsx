@@ -1,17 +1,22 @@
 // Packages
-import React, { FormEventHandler } from "react";
+import React, { FormEventHandler, useState } from "react";
 
 type TSearchProps = {
-  doSearch: () => FormEventHandler<HTMLFormElement> | undefined;
+  doSearch: (term: string) => FormEventHandler<HTMLFormElement> | undefined;
 };
 
 const Search: React.FC<TSearchProps> = ({ doSearch }) => {
+  // -------------------------------------------------
+  // States
+  // -------------------------------------------------
+  const [term, setTerm] = useState("");
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <form
-      onSubmit={doSearch}
+      onSubmit={() => doSearch(term)}
       name="search-form"
       className="relative mt-6 max-w-lg mx-auto"
     >
@@ -30,6 +35,8 @@ const Search: React.FC<TSearchProps> = ({ doSearch }) => {
       <input
         className="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
         type="text"
+        value={term}
+        onChange={(ev) => setTerm(ev.target.value)}
         placeholder="Search"
       />
     </form>
