@@ -34,7 +34,7 @@ const Search: React.FC<TSearchProps> = ({ doSearch }) => {
 
       <input
         className="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
-        type="text"
+        type="search"
         value={term}
         onChange={(ev) => setTerm(ev.target.value)}
         placeholder="Search"

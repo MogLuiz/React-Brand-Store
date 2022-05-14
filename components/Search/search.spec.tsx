@@ -14,6 +14,12 @@ describe("Search", () => {
     expect(screen.getByRole("form")).toBeInTheDocument();
   });
 
+  it("should render a input type equals search", () => {
+    render(<Search doSearch={doSearch} />);
+
+    expect(screen.getByRole("searchbox")).toHaveProperty("type", "search");
+  });
+
   it("should call props.doSearch() when form is submitted", async () => {
     render(<Search doSearch={doSearch} />);
 
@@ -27,14 +33,14 @@ describe("Search", () => {
   it("should call props.doSearch() with the user input", async () => {
     render(<Search doSearch={doSearch} />);
 
-    const textSubmitted = 'some text here'
+    const textSubmitted = "some text here";
 
-    const form = screen.getByRole('form')
-    const input = screen.getByRole('textbox')
+    const form = screen.getByRole("form");
+    const input = screen.getByRole("searchbox");
 
-    await userEvent.type(input, textSubmitted)
-    await fireEvent.submit(form)
+    await userEvent.type(input, textSubmitted);
+    await fireEvent.submit(form);
 
-    expect(doSearch).toHaveBeenCalledWith(textSubmitted)
+    expect(doSearch).toHaveBeenCalledWith(textSubmitted);
   });
 });
