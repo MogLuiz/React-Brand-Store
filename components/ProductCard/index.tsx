@@ -29,6 +29,7 @@ const ProductCard: React.FC<TProductCardProps> = ({ product }) => {
             <svg
               className="h-5 w-5"
               fill="none"
+              aria-label="add to cart button"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"

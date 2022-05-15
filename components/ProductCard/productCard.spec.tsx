@@ -1,5 +1,5 @@
 // Packages
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 
 // Components
 import ProductCard from ".";
@@ -20,8 +20,16 @@ const setup = () => {
   const productTitle = screen.getByText(new RegExp(product.title, "i"));
   const productPrice = screen.getByText(new RegExp(product.price, "i"));
   const productImage = screen.getByTestId("image");
+  const productButton = screen.getByLabelText(/add to cart button/i);
 
-  return { productCard, productTitle, productPrice, productImage, ...utils };
+  return {
+    productCard,
+    productTitle,
+    productPrice,
+    productImage,
+    productButton,
+    ...utils,
+  };
 };
 
 describe("ProductCard", () => {
@@ -39,5 +47,14 @@ describe("ProductCard", () => {
     expect(productImage).toHaveStyle({
       backgroundImage: product.image,
     });
+  });
+
+  it("should call props.addToCart() when button gets clicked", async () => {
+    const { productButton } = setup();
+
+    await fireEvent.click(productButton);
+
+    expect(addToCart).toHaveBeenCalledTimes(1);
+    expect(addToCart).toHaveBeenCalledWith(product);
   });
 });
