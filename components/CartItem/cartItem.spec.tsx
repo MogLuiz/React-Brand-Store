@@ -40,4 +40,22 @@ describe("CartItem", () => {
 
     expect(cartItem).toBeInTheDocument();
   });
+
+  it("should diplay proper content", () => {
+    const {
+      productImage,
+      productPrice,
+      productTitle,
+      increaseButton,
+      decreaseButton,
+    } = setup();
+
+    expect(productImage).toHaveStyle({
+      backgroundImage: product.image,
+    });
+    expect(productPrice).toBeInTheDocument();
+    expect(productTitle).toBeInTheDocument();
+    expect(increaseButton).toBeInTheDocument();
+    expect(decreaseButton).toBeInTheDocument();
+  });
 });
