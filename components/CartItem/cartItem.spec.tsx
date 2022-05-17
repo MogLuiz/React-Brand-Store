@@ -11,15 +11,17 @@ const product = {
   price: "22.00",
   image:
     "https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+  totalProducts: 1,
 };
 
 const setup = () => {
-  const utils = render(<CartItemComponent />);
+  const utils = render(<CartItemComponent product={product} />);
 
   const cartItem = screen.getByTestId("cart-item");
   const productTitle = screen.getByText(new RegExp(product.title, "i"));
   const productPrice = screen.getByText(new RegExp(product.price, "i"));
   const productImage = screen.getByAltText(/product image/i);
+  const totalProducts = screen.getAllByLabelText(/total products/i);
   const increaseButton = screen.getByLabelText(/increase cart button/i);
   const decreaseButton = screen.getByLabelText(/decrease cart button/i);
 
@@ -28,6 +30,7 @@ const setup = () => {
     productTitle,
     productPrice,
     productImage,
+    totalProducts,
     increaseButton,
     decreaseButton,
     ...utils,

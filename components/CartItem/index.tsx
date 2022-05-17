@@ -2,7 +2,18 @@
 // Packages
 import React from "react";
 
-const CartItem: React.FC = () => {
+type TProductItem = {
+  title: string;
+  price: string;
+  image: string;
+  totalProducts: number;
+};
+
+type TCartItemProps = {
+  product: TProductItem;
+};
+
+const CartItem: React.FC<TCartItemProps> = ({ product }) => {
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
@@ -11,13 +22,18 @@ const CartItem: React.FC = () => {
       <div className="flex">
         <img
           className="h-20 w-20 object-cover rounded"
-          src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
+          style={{
+            backgroundImage: `url(${product?.image})`,
+          }}
           alt="product image"
         />
         <div className="mx-3">
-          <h3 className="text-sm text-gray-600">Mac Book Pro</h3>
+          <h3 className="text-sm text-gray-600">{product?.title}</h3>
           <div className="flex items-center mt-2">
-            <button  aria-label="increase cart button" className="text-gray-500 focus:outline-none focus:text-gray-600">
+            <button
+              aria-label="increase cart button"
+              className="text-gray-500 focus:outline-none focus:text-gray-600"
+            >
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -30,8 +46,13 @@ const CartItem: React.FC = () => {
                 <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </button>
-            <span className="text-gray-700 mx-2">2</span>
-            <button aria-label="decrease cart button" className="text-gray-500 focus:outline-none focus:text-gray-600">
+            <span aria-label="total products" className="text-gray-700 mx-2">
+              {product?.totalProducts}
+            </span>
+            <button
+              aria-label="decrease cart button"
+              className="text-gray-500 focus:outline-none focus:text-gray-600"
+            >
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -47,7 +68,7 @@ const CartItem: React.FC = () => {
           </div>
         </div>
       </div>
-      <span className="text-gray-600">20$</span>
+      <span className="text-gray-600">{product?.price}</span>
     </div>
   );
 };
