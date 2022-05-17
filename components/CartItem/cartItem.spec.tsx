@@ -20,7 +20,7 @@ const setup = () => {
   const cartItem = screen.getByTestId("cart-item");
   const productTitle = screen.getByText(new RegExp(product.title, "i"));
   const productPrice = screen.getByText(new RegExp(product.price, "i"));
-  const productImage = screen.getByAltText(/product image/i);
+  const productImage = screen.getByAltText(new RegExp(product.title, "i"));
   const totalProducts = screen.getAllByLabelText(/total products/i);
   const increaseButton = screen.getByLabelText(/increase cart button/i);
   const decreaseButton = screen.getByLabelText(/decrease cart button/i);
@@ -56,6 +56,8 @@ describe("CartItem", () => {
     expect(productImage).toHaveStyle({
       backgroundImage: product.image,
     });
+    expect(productImage).toHaveProperty("src", product.image);
+    expect(productImage).toHaveProperty("alt", product.title);
     expect(productPrice).toBeInTheDocument();
     expect(productTitle).toBeInTheDocument();
     expect(increaseButton).toBeInTheDocument();

@@ -22,10 +22,8 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
       <div className="flex">
         <img
           className="h-20 w-20 object-cover rounded"
-          style={{
-            backgroundImage: `url(${product?.image})`,
-          }}
-          alt="product image"
+          src={product?.image}
+          alt={product?.title}
         />
         <div className="mx-3">
           <h3 className="text-sm text-gray-600">{product?.title}</h3>
