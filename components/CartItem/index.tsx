@@ -20,6 +20,15 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
   const [totalProducts, setTotalProducts] = useState(1);
 
   // -------------------------------------------------
+  // Functions
+  // -------------------------------------------------
+
+  const handleIncreaseTotalProducts = () => setTotalProducts(totalProducts + 1);
+
+  const handleDecreaseTotalProducts = () =>
+    totalProducts > 0 && setTotalProducts(totalProducts - 1);
+
+  // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
@@ -35,7 +44,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
           <div className="flex items-center mt-2">
             <button
               aria-label="increase cart button"
-              onClick={() => setTotalProducts(totalProducts + 1)}
+              onClick={handleIncreaseTotalProducts}
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
@@ -55,9 +64,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
             </span>
             <button
               aria-label="decrease cart button"
-              onClick={() =>
-                totalProducts > 0 && setTotalProducts(totalProducts - 1)
-              }
+              onClick={handleDecreaseTotalProducts}
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
