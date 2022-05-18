@@ -75,12 +75,25 @@ describe("CartItem", () => {
     expect(totalProducts.textContent).toBe("2");
   });
 
-  fit('should decrease quantity by 1 when ( - ) button is clicked', async () => {
+  fit("should decrease quantity by 1 when ( - ) button is clicked", async () => {
     const { increaseButton, decreaseButton, totalProducts } = setup();
 
     await fireEvent.click(increaseButton);
     expect(totalProducts.textContent).toBe("2");
-    
+
+    await fireEvent.click(decreaseButton);
+    expect(totalProducts.textContent).toBe("1");
+  });
+
+  fit("should not go bellow zero in the quantity", async () => {
+    const { increaseButton, decreaseButton, totalProducts } = setup();
+
+    await fireEvent.click(increaseButton);
+    expect(totalProducts.textContent).toBe("2");
+
+    await fireEvent.click(decreaseButton);
+    await fireEvent.click(decreaseButton);
+    await fireEvent.click(decreaseButton);
     await fireEvent.click(decreaseButton);
     expect(totalProducts.textContent).toBe("1");
   });
