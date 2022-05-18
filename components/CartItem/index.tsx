@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // Packages
-import React from "react";
+import React, { useState } from "react";
 
 type TProductItem = {
   title: string;
@@ -14,6 +14,11 @@ type TCartItemProps = {
 };
 
 const CartItem: React.FC<TCartItemProps> = ({ product }) => {
+  // -------------------------------------------------
+  // States
+  // -------------------------------------------------
+  const [totalProducts, setTotalProducts] = useState(1);
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
@@ -30,6 +35,7 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
           <div className="flex items-center mt-2">
             <button
               aria-label="increase cart button"
+              onClick={() => setTotalProducts(totalProducts + 1)}
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
@@ -44,8 +50,12 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
                 <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </button>
-            <span aria-label="total products" className="text-gray-700 mx-2">
-              {product?.totalProducts}
+            <span
+              aria-label="total products"
+              onClick={() => setTotalProducts(totalProducts - 1)}
+              className="text-gray-700 mx-2"
+            >
+              {totalProducts}
             </span>
             <button
               aria-label="decrease cart button"
