@@ -64,9 +64,17 @@ describe("CartItem", () => {
     expect(decreaseButton).toBeInTheDocument();
   });
 
-  fit("should display 1 as initial quantity", () => {
-    setup();
+  it("should display 1 as initial quantity", () => {
+    const { totalProducts } = setup();
 
-    expect(screen.getByLabelText(/total products/i).textContent).toBe("1");
+    expect(totalProducts.textContent).toBe("1");
+  });
+
+  fit("should increase quantity by 1 when plus button is clicked", async () => {
+    const { increaseButton, totalProducts } = setup();
+
+    await fireEvent.click(increaseButton);
+
+    expect(totalProducts.textContent).toBe("2");
   });
 });
