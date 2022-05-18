@@ -21,7 +21,7 @@ const setup = () => {
   const productTitle = screen.getByText(new RegExp(product.title, "i"));
   const productPrice = screen.getByText(new RegExp(product.price, "i"));
   const productImage = screen.getByAltText(new RegExp(product.title, "i"));
-  const totalProducts = screen.getAllByLabelText(/total products/i);
+  const totalProducts = screen.getByLabelText(/total products/i);
   const increaseButton = screen.getByLabelText(/increase cart button/i);
   const decreaseButton = screen.getByLabelText(/decrease cart button/i);
 
@@ -62,5 +62,11 @@ describe("CartItem", () => {
     expect(productTitle).toBeInTheDocument();
     expect(increaseButton).toBeInTheDocument();
     expect(decreaseButton).toBeInTheDocument();
+  });
+
+  fit("should display 1 as initial quantity", () => {
+    setup();
+
+    expect(screen.getByLabelText(/total products/i).textContent).toBe("1");
   });
 });
