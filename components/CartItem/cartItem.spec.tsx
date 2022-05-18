@@ -95,6 +95,6 @@ describe("CartItem", () => {
     await fireEvent.click(decreaseButton);
     await fireEvent.click(decreaseButton);
     await fireEvent.click(decreaseButton);
-    expect(totalProducts.textContent).toBe("1");
+    expect(totalProducts.textContent).toBe("0");
   });
 });

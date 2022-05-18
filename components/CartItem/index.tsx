@@ -50,15 +50,14 @@ const CartItem: React.FC<TCartItemProps> = ({ product }) => {
                 <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </button>
-            <span
-              aria-label="total products"
-              className="text-gray-700 mx-2"
-              >
+            <span aria-label="total products" className="text-gray-700 mx-2">
               {totalProducts}
             </span>
             <button
               aria-label="decrease cart button"
-              onClick={() => setTotalProducts(totalProducts - 1)}
+              onClick={() =>
+                totalProducts > 0 && setTotalProducts(totalProducts - 1)
+              }
               className="text-gray-500 focus:outline-none focus:text-gray-600"
             >
               <svg
