@@ -36,7 +36,7 @@ const setup = () => {
 
 describe("CartItem", () => {
   it("should render CartItem", () => {
-    const { cartItem, asFragment } = setup();
+    const { cartItem } = setup();
 
     expect(cartItem).toBeInTheDocument();
   });
@@ -67,34 +67,34 @@ describe("CartItem", () => {
     expect(totalProducts.textContent).toBe("1");
   });
 
-  it("should increase quantity by 1 when ( + ) button is clicked", async () => {
+  it("should increase quantity by 1 when ( + ) button is clicked", () => {
     const { increaseButton, totalProducts } = setup();
 
-    await fireEvent.click(increaseButton);
+    fireEvent.click(increaseButton);
 
     expect(totalProducts.textContent).toBe("2");
   });
 
-  fit("should decrease quantity by 1 when ( - ) button is clicked", async () => {
+  it("should decrease quantity by 1 when ( - ) button is clicked", () => {
     const { increaseButton, decreaseButton, totalProducts } = setup();
 
-    await fireEvent.click(increaseButton);
+    fireEvent.click(increaseButton);
     expect(totalProducts.textContent).toBe("2");
 
-    await fireEvent.click(decreaseButton);
+    fireEvent.click(decreaseButton);
     expect(totalProducts.textContent).toBe("1");
   });
 
-  fit("should not go bellow zero in the quantity", async () => {
+  it("should not go bellow zero in the quantity", () => {
     const { increaseButton, decreaseButton, totalProducts } = setup();
 
-    await fireEvent.click(increaseButton);
+    fireEvent.click(increaseButton);
     expect(totalProducts.textContent).toBe("2");
 
-    await fireEvent.click(decreaseButton);
-    await fireEvent.click(decreaseButton);
-    await fireEvent.click(decreaseButton);
-    await fireEvent.click(decreaseButton);
+    fireEvent.click(decreaseButton);
+    fireEvent.click(decreaseButton);
+    fireEvent.click(decreaseButton);
+    fireEvent.click(decreaseButton);
     expect(totalProducts.textContent).toBe("0");
   });
 });
