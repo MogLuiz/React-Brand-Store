@@ -9,3 +9,5 @@ type TUser = {
 const model = {
     user: Model.extend<Partial<TUser>>({})
 }
+
+export default model
