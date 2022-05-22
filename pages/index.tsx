@@ -1,6 +1,6 @@
 // Packages
 import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, EffectCallback } from "react";
 
 // Services
 import axios from "axios";
@@ -19,10 +19,19 @@ const Home: NextPage = () => {
   // Hooks
   // -------------------------------------------------
   useEffect(() => {
+    let mounted = true;
     axios
       .get("/api/products")
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => setError(true));
+      .then((res) => {
+        if (mounted) setProducts(res.data.products);
+      })
+      .catch((err) => {
+        if (mounted) setError(true);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // -------------------------------------------------
