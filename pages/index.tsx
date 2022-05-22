@@ -7,32 +7,14 @@ import axios from "axios";
 
 // Components
 import { ProductCard, Search } from "../components";
+import useFetchProducts from "../hooks/useFetchProducts";
 
 const Home: NextPage = () => {
   // -------------------------------------------------
-  // States
+  // Custom Hooks
   // -------------------------------------------------
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(false);
 
-  // -------------------------------------------------
-  // Hooks
-  // -------------------------------------------------
-  useEffect(() => {
-    let mounted = true;
-    axios
-      .get("/api/products")
-      .then((res) => {
-        if (mounted) setProducts(res.data.products);
-      })
-      .catch((err) => {
-        if (mounted) setError(true);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  const { products, error } = useFetchProducts()
 
   // -------------------------------------------------
   // Render
