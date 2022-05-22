@@ -5,9 +5,15 @@ type TUser = {
   mobile: string;
 };
 
+type TProduct = {
+  title: string;
+  price: string;
+  image: string;
+};
 
 const model = {
-    user: Model.extend<Partial<TUser>>({})
-}
+  user: Model.extend<Partial<TUser>>({}),
+  product: Model.extend<Partial<TProduct>>({}),
+};
 
-export default model
+export default model;
