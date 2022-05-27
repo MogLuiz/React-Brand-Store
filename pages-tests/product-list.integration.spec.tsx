@@ -6,6 +6,7 @@ import ProductList from "../pages";
 
 // Services
 import { makeServer, TServer } from "../services/mirage/server";
+import { Response } from "miragejs";
 
 const setupRender = () => {
   const utils = render(<ProductList />);
@@ -39,11 +40,24 @@ describe("ProductList", () => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(10);
     });
   });
+
   it('should render the "no products message"', async () => {
     const { emptyProductsMessage } = setupRender();
 
     await waitFor(() => {
       expect(emptyProductsMessage).toBeInTheDocument();
+    });
+  });
+
+  fit("should display error message when promise rejects", async () => {
+    server.get("products", () => new Response(500, {}, ""));
+
+    const { emptyProductsMessage } = setupRender();
+
+    await waitFor(() => {
+      expect(emptyProductsMessage).not.toBeInTheDocument();
+      expect(screen.getByTestId("server-error")).toBeInTheDocument();
+      expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
     });
   });
 });
