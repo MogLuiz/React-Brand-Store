@@ -56,7 +56,7 @@ describe("ProductList", () => {
 
     await waitFor(() => {
       expect(emptyProductsMessage).not.toBeInTheDocument();
-      expect(screen.getByTestId("server-error")).toBeInTheDocument();
+      expect(screen.getByText(/Server is down/i)).toBeInTheDocument();
       expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
     });
   });
