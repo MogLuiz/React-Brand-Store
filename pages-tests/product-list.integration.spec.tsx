@@ -7,32 +7,40 @@ import ProductList from "../pages";
 // Services
 import { makeServer, TServer } from "../services/mirage/server";
 
-const setup = () => {
+const setupRender = () => {
   render(<ProductList />);
 };
 
 describe("ProductList", () => {
-  let server: TServer
-    beforeEach(() => {
-      server = makeServer({ environment: "test" })
-    })
+  let server: TServer;
+  beforeEach(() => {
+    server = makeServer({ environment: "test" });
+  });
 
-    afterEach(() => {
-      server.shutdown()
-    })
+  afterEach(() => {
+    server.shutdown();
+  });
 
   it("should render ProductList", () => {
-    setup();
+    setupRender();
 
     expect(screen.getByTestId("product-list")).toBeInTheDocument();
   });
 
   it("should render the ProductCard component 10 times", async () => {
-    server.createList('product', 10)
-    setup();
+    server.createList("product", 10);
+    setupRender();
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(10);
+    });
+  });
+
+  it('should render the "no products message"', async () => {
+    setupRender();
+
+    await waitFor(() => {
+      expect(screen.getByTestId("no-products")).toBeInTheDocument();
     });
   });
 });
