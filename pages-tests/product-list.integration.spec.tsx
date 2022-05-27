@@ -40,7 +40,7 @@ describe("ProductList", () => {
     setupRender();
 
     await waitFor(() => {
-      expect(screen.getByTestId("no-products")).toBeInTheDocument();
+      expect(screen.getByLabelText("Empty products message")).toBeInTheDocument();
     });
   });
 });
