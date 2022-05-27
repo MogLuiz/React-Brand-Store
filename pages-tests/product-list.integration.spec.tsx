@@ -8,7 +8,12 @@ import ProductList from "../pages";
 import { makeServer, TServer } from "../services/mirage/server";
 
 const setupRender = () => {
-  render(<ProductList />);
+  const utils = render(<ProductList />);
+
+  const productList = screen.getByTestId("product-list");
+  const emptyProductsMessage = screen.getByLabelText("Empty products message");
+
+  return { ...utils, productList, emptyProductsMessage };
 };
 
 describe("ProductList", () => {
@@ -22,25 +27,23 @@ describe("ProductList", () => {
   });
 
   it("should render ProductList", () => {
-    setupRender();
+    const { productList } = setupRender();
 
-    expect(screen.getByTestId("product-list")).toBeInTheDocument();
+    expect(productList).toBeInTheDocument();
   });
 
   it("should render the ProductCard component 10 times", async () => {
     server.createList("product", 10);
     setupRender();
-
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(10);
     });
   });
-
   it('should render the "no products message"', async () => {
-    setupRender();
+    const { emptyProductsMessage } = setupRender();
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Empty products message")).toBeInTheDocument();
+      expect(emptyProductsMessage).toBeInTheDocument();
     });
   });
 });
