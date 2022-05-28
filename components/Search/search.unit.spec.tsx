@@ -17,6 +17,10 @@ const setup = () => {
 };
 
 describe("Search", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should render a form", () => {
     const { form } = setup();
 
@@ -46,5 +50,17 @@ describe("Search", () => {
     await fireEvent.submit(form);
 
     expect(doSearch).toHaveBeenCalledWith(textSubmitted);
+  });
+
+  it("should call props.doSearch() when search input is cleared", async () => {
+    const { input } = setup();
+
+    const textSubmitted = "some text here";
+
+    await userEvent.type(input, textSubmitted);
+    await userEvent.clear(input);
+
+    expect(doSearch).toHaveBeenCalledWith("");
+    expect(doSearch).toHaveBeenCalledTimes(1);
   });
 });
