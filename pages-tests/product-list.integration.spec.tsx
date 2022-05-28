@@ -1,5 +1,6 @@
 // Packages
-import { screen, render, waitFor } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 // Page
 import ProductList from "../pages";
@@ -62,16 +63,28 @@ describe("ProductList", () => {
   });
 
   fit("should filter the product list when a search is performed", async () => {
+    const searchTerm = "Relógio bonito";
+
     server.createList("product", 2);
 
     server.create("product", {
-      title: "Relogio bonito",
+      title: "Relógio bonito",
     } as object);
 
     setupRender();
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(3);
+    });
+
+    const form = screen.getByRole("form");
+    const input = screen.getByRole("searchbox");
+
+    userEvent.type(input, searchTerm);
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(1);
     });
   });
 });

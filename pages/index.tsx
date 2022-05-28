@@ -39,12 +39,14 @@ const Home: NextPage = () => {
     return <h4>Server is down</h4>;
   };
 
+  const doSearch = () => {}
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <main data-testid="product-list" className="my-8">
-      <Search doSearch={(term) => console.log(term) as any} />
+      <Search doSearch={doSearch as any} />
       <div className="container mx-auto px-6">
         <h3 className="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
         <span className="mt-3 text-sm text-gray-500">200+ Products</span>
