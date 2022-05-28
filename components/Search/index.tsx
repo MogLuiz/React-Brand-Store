@@ -2,7 +2,7 @@
 import React, { FormEventHandler, useState } from "react";
 
 type TSearchProps = {
-  doSearch: (term: string) => void ;
+  doSearch: (term: string) => void;
 };
 
 const Search: React.FC<TSearchProps> = ({ doSearch }) => {
@@ -11,12 +11,17 @@ const Search: React.FC<TSearchProps> = ({ doSearch }) => {
   // -------------------------------------------------
   const [term, setTerm] = useState("");
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    doSearch(term);
+  };
+
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <form
-      onSubmit={() => doSearch(term)}
+      onSubmit={handleSubmit}
       name="search-form"
       className="relative mt-6 max-w-lg mx-auto"
     >

@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     } else {
       setLocalProducts(
         products.filter(({ title }) => {
-          return title.toLowerCase().indexOf(term.toLowerCase()) > -1;
+          return title.toLowerCase().includes(term.toLowerCase())
         })
       );
     }
