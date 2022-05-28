@@ -49,7 +49,7 @@ describe("ProductList", () => {
     });
   });
 
-  fit("should display error message when promise rejects", async () => {
+  it("should display error message when promise rejects", async () => {
     server.get("products", () => new Response(500, {}, ""));
 
     const { emptyProductsMessage } = setupRender();
@@ -59,5 +59,9 @@ describe("ProductList", () => {
       expect(screen.getByText(/Server is down/i)).toBeInTheDocument();
       expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
     });
+  });
+
+  it('should filter the product list when a search is performed', async () => {
+    
   });
 });
