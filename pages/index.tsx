@@ -7,24 +7,39 @@ import axios from "axios";
 
 // Components
 import { ProductCard, Search } from "../components";
-import useFetchProducts from "../hooks/useFetchProducts";
+import useFetchProducts, { ProductsType } from "../hooks/useFetchProducts";
 
 const Home: NextPage = () => {
   // -------------------------------------------------
-  // Custom Hooks
+  // States
   // -------------------------------------------------
-
   const { products, error } = useFetchProducts();
+  const [term, setTerm] = useState("");
+  const [localProducts, setLocalProducts] = useState<ProductsType>([]);
+
+  // -------------------------------------------------
+  // Hooks
+  // -------------------------------------------------
+  useEffect(() => {
+    if (term === "") {
+      setLocalProducts(products);
+    } else {
+      setLocalProducts(
+        products.filter(({ title }) => {
+          return title.toLowerCase().indexOf(term.toLowerCase()) > -1;
+        })
+      );
+    }
+  }, [products, term]);
 
   // -------------------------------------------------
   // Functions
   // -------------------------------------------------
-
   const renderProducts = () => {
-    if (products.length === 0 && !error)
+    if (localProducts.length === 0 && !error)
       return <h4 aria-label="Empty products message">No products</h4>;
 
-    return products.map((product: any) => (
+    return localProducts.map((product: any) => (
       <ProductCard
         product={product}
         key={product.id}
@@ -39,14 +54,14 @@ const Home: NextPage = () => {
     return <h4>Server is down</h4>;
   };
 
-  const doSearch = () => {}
+  const doSearch = () => {};
 
   // -------------------------------------------------
   // Render
   // -------------------------------------------------
   return (
     <main data-testid="product-list" className="my-8">
-      <Search doSearch={doSearch as any} />
+      <Search doSearch={(term) => setTerm(term)} />
       <div className="container mx-auto px-6">
         <h3 className="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
         <span className="mt-3 text-sm text-gray-500">200+ Products</span>

@@ -80,8 +80,8 @@ describe("ProductList", () => {
     const form = screen.getByRole("form");
     const input = screen.getByRole("searchbox");
 
-    userEvent.type(input, searchTerm);
-    fireEvent.submit(form);
+    await userEvent.type(input, searchTerm);
+    await fireEvent.submit(form);
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(1);

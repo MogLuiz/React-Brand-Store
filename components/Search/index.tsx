@@ -2,7 +2,7 @@
 import React, { FormEventHandler, useState } from "react";
 
 type TSearchProps = {
-  doSearch: (term: string) => FormEventHandler<HTMLFormElement> | undefined;
+  doSearch: (term: string) => void ;
 };
 
 const Search: React.FC<TSearchProps> = ({ doSearch }) => {

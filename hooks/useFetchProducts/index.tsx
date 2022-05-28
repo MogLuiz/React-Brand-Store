@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+type TProducts = {
+  id: string;
+  image: string;
+  price: string;
+  title: string;
+}[];
+
 const useFetchProducts = () => {
   // -------------------------------------------------
   // States
   // -------------------------------------------------
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<TProducts>([]);
   const [error, setError] = useState(false);
 
   // -------------------------------------------------
@@ -32,3 +39,4 @@ const useFetchProducts = () => {
 };
 
 export default useFetchProducts;
+export type ProductsType = TProducts;
