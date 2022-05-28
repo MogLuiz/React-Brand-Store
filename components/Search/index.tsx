@@ -11,6 +11,9 @@ const Search: React.FC<TSearchProps> = ({ doSearch }) => {
   // -------------------------------------------------
   const [term, setTerm] = useState("");
 
+  // -------------------------------------------------
+  // Functions
+  // -------------------------------------------------
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     doSearch(term);
@@ -19,7 +22,9 @@ const Search: React.FC<TSearchProps> = ({ doSearch }) => {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(event.target.value);
 
-    if (event.target.value === "") doSearch("");
+    if (event.target.value === "") {
+      doSearch("");
+    }
   };
 
   // -------------------------------------------------

@@ -87,4 +87,14 @@ describe("ProductList", () => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(1);
     });
   });
+
+  it("should display the total quantity of products", async () => {
+    server.createList("product", 10);
+
+    setupRender();
+
+    await waitFor(() => {
+      expect(screen.getByText(/10 Produtos/i)).toBeInTheDocument();
+    });
+  });
 });
