@@ -61,7 +61,17 @@ describe("ProductList", () => {
     });
   });
 
-  it('should filter the product list when a search is performed', async () => {
-    
+  fit("should filter the product list when a search is performed", async () => {
+    server.createList("product", 2);
+
+    server.create("product", {
+      title: "Relogio bonito",
+    } as object);
+
+    setupRender();
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(3);
+    });
   });
 });
