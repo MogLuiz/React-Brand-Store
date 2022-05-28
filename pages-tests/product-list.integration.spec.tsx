@@ -94,7 +94,7 @@ describe("ProductList", () => {
     setupRender();
 
     await waitFor(() => {
-      expect(screen.getByText(/10 Produtos/i)).toBeInTheDocument();
+      expect(screen.getByText(/10 Products/i)).toBeInTheDocument();
     });
   });
 });
