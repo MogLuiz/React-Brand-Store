@@ -14,6 +14,7 @@ const Home: NextPage = () => {
   // States
   // -------------------------------------------------
   const { products, error } = useFetchProducts();
+  
   const [term, setTerm] = useState("");
   const [localProducts, setLocalProducts] = useState<ProductsType>([]);
 

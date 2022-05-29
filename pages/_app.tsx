@@ -1,10 +1,11 @@
+/* istanbul ignore file */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { Cart } from "../components";
 
-if (process.env.NODE_ENV === 'development') {
-  require('../services/mirage/server').makeServer()
+if (process.env.NODE_ENV === "development") {
+  require("../services/mirage/server").makeServer();
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
