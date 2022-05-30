@@ -3,12 +3,15 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { Cart } from "../components";
+import useCartStore from "../store/Cart";
 
 if (process.env.NODE_ENV === "development") {
   require("../services/mirage/server").makeServer();
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const toggle = useCartStore((store) => store.actions.toggle);
+
   return (
     <div className="bg-white">
       <header>
@@ -40,7 +43,10 @@ function MyApp({ Component, pageProps }: AppProps) {
               Brand
             </div>
             <div className="flex items-center justify-end w-full">
-              <button className="text-gray-600 focus:outline-none mx-4 sm:mx-0">
+              <button
+                onClick={() => toggle()}
+                className="text-gray-600 focus:outline-none mx-4 sm:mx-0"
+              >
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -53,7 +59,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
               </button>
-
               <div className="flex sm:hidden">
                 <button
                   type="button"

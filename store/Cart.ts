@@ -10,17 +10,13 @@ interface BearState {
   };
 }
 
-const useCartStore = create<BearState>()(
-  devtools(
-    persist((set) => ({
-      state: {
-        open: true,
-      },
-      actions: {
-        toggle: () => set((store) => ({ state: { open: !store.state.open } })),
-      },
-    }))
-  )
-);
+const useCartStore = create<BearState>((set) => ({
+  state: {
+    open: false,
+  },
+  actions: {
+    toggle: () => set((store) => ({ state: { open: !store.state.open } })),
+  },
+}));
 
 export default useCartStore

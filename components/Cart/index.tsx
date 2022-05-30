@@ -36,7 +36,7 @@ const Cart: React.FC = () => {
         </button>
       </div>
       <hr className="my-3" />
-      <CartItem />
+      <CartItem product={[] as any}/>
       <div className="mt-8">
         <form className="flex items-center justify-center">
           <input
