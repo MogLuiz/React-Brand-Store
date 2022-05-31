@@ -1,28 +1,28 @@
-import { renderHook, act } from "@testing-library/react-hooks";
-import useCartStore from "./Cart";
+import { renderHook, act, RenderResult } from "@testing-library/react-hooks";
+import useCartStore, { IUseCartState } from "./Cart";
 
 // Services
 import { makeServer, TServer } from "../services/mirage/server";
 
 describe("Cart Store", () => {
   let server: TServer;
+  let result: RenderResult<IUseCartState>;
+
   beforeEach(() => {
     server = makeServer({ environment: "test" });
+    result = renderHook(() => useCartStore()).result;
   });
 
   afterEach(() => {
     server.shutdown();
+    act(() => result.current.actions.reset());
   });
 
   it("should return open equals false on initial state", () => {
-    const { result } = renderHook(() => useCartStore());
-
     expect(result.current.state.open).toBe(false);
   });
 
   it("should return an empty array for products on initial state", () => {
-    const { result } = renderHook(() => useCartStore());
-
     expect(Array.isArray(result.current.state.products)).toBe(true);
     expect(result.current.state.products).toHaveLength(0);
   });
@@ -30,7 +30,6 @@ describe("Cart Store", () => {
   it("should increase products when addProduct functions is called", async () => {
     const products = server.createList("product", 2);
 
-    const { result } = renderHook(() => useCartStore());
     const {
       actions: { addProduct },
     } = result.current;
@@ -45,7 +44,6 @@ describe("Cart Store", () => {
   });
 
   it("should toggle open state", () => {
-    const { result } = renderHook(() => useCartStore());
     const {
       actions: { toggle },
     } = result.current;

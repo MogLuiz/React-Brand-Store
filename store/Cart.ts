@@ -4,7 +4,7 @@ import create from "zustand";
 // Types
 import { TProduct } from "./types";
 
-interface IUseCartState {
+export interface IUseCartState {
   state: {
     open: boolean;
     products: TProduct[];
