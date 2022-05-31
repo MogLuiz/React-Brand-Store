@@ -1,22 +1,27 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-interface BearState {
+interface IUseCartState {
   state: {
     open: boolean;
+    products: any;
   };
   actions: {
     toggle: () => void;
   };
 }
 
-const useCartStore = create<BearState>((set) => ({
+const useCartStore = create<IUseCartState>((set) => ({
   state: {
     open: false,
+    products: [],
   },
   actions: {
-    toggle: () => set((store) => ({ state: { open: !store.state.open } })),
+    toggle: () =>
+      set((store) => ({
+        state: { open: !store.state.open, products: store.state.products },
+      })),
   },
 }));
 
-export default useCartStore
+export default useCartStore;
