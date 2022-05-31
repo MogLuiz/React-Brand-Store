@@ -1,10 +1,15 @@
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
 
+type TProduct = {
+  id: string;
+  image: string;
+  price: string;
+  title: string;
+};
 interface IUseCartState {
   state: {
     open: boolean;
-    products: any;
+    products: TProduct[];
   };
   actions: {
     toggle: () => void;
