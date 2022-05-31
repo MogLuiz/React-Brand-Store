@@ -1,6 +1,6 @@
 import create from "zustand";
 
-type TProduct = {
+export type TProduct = {
   id: string;
   image: string;
   price: string;
@@ -13,6 +13,7 @@ interface IUseCartState {
   };
   actions: {
     toggle: () => void;
+    addProduct: (product: TProduct) => void;
   };
 }
 
@@ -24,7 +25,14 @@ const useCartStore = create<IUseCartState>((set) => ({
   actions: {
     toggle: () =>
       set((store) => ({
-        state: { open: !store.state.open, products: store.state.products },
+        state: { ...store.state, open: !store.state.open },
+      })),
+    addProduct: (product) =>
+      set((store) => ({
+        state: {
+          ...store.state,
+          products: [...store.state.products, product],
+        },
       })),
   },
 }));

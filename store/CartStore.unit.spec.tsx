@@ -27,7 +27,7 @@ describe("Cart Store", () => {
     expect(result.current.state.products).toHaveLength(0);
   });
 
-  it("", async () => {
+  it("should increase products when addProduct functions is called", async () => {
     const products = server.createList("product", 2);
 
     const { result } = renderHook(() => useCartStore());
@@ -38,7 +38,7 @@ describe("Cart Store", () => {
     expect(result.current.state.products).toHaveLength(0);
 
     for (const product of products) {
-      act(() => addProduct(product));
+      act(() => addProduct(product as any));
     }
 
     expect(result.current.state.products).toHaveLength(2);
