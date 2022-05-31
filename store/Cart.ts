@@ -11,6 +11,7 @@ interface IUseCartState {
   };
   actions: {
     toggle: () => void;
+    reset: () => void;
     addProduct: (product: TProduct) => void;
   };
 }
@@ -27,6 +28,7 @@ const useCartStore = create<IUseCartState>((set) => ({
       set((store) => ({
         state: { ...store.state, open: !store.state.open },
       })),
+    reset: () => set((store) => ({ state: { ...initialState } })),
     addProduct: (product) =>
       set((store) => ({
         state: {
