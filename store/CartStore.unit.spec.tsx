@@ -1,16 +1,26 @@
+// Packages
 import { renderHook, act, RenderResult } from "@testing-library/react-hooks";
+
+// Components
 import useCartStore, { IUseCartState } from "./Cart";
 
 // Services
 import { makeServer, TServer } from "../services/mirage/server";
 
+// Types
+import { TProduct } from "./types";
+
 describe("Cart Store", () => {
   let server: TServer;
   let result: RenderResult<IUseCartState>;
+  let addProduct: (product: TProduct) => void;
+  let toggle: () => void;
 
   beforeEach(() => {
     server = makeServer({ environment: "test" });
     result = renderHook(() => useCartStore()).result;
+    addProduct = result.current.actions.addProduct;
+    toggle = result.current.actions.toggle;
   });
 
   afterEach(() => {
@@ -30,10 +40,6 @@ describe("Cart Store", () => {
   it("should increase products when addProduct functions is called", async () => {
     const products = server.createList("product", 2);
 
-    const {
-      actions: { addProduct },
-    } = result.current;
-
     expect(result.current.state.products).toHaveLength(0);
 
     for (const product of products) {
@@ -44,10 +50,6 @@ describe("Cart Store", () => {
   });
 
   it("should toggle open state", () => {
-    const {
-      actions: { toggle },
-    } = result.current;
-
     expect(result.current.state.open).toBe(false);
     act(() => toggle());
 
