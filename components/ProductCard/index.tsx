@@ -5,6 +5,7 @@ type TProductItem = {
   title: string;
   price: string;
   image: string;
+  id: string;
 };
 
 type TProductCardProps = {

@@ -9,6 +9,9 @@ import axios from "axios";
 import { ProductCard, Search } from "../components";
 import useFetchProducts, { ProductsType } from "../hooks/useFetchProducts";
 
+// Store
+import useCartStore from "../store/Cart";
+
 const Home: NextPage = () => {
   // -------------------------------------------------
   // States
@@ -33,6 +36,8 @@ const Home: NextPage = () => {
     }
   }, [products, term]);
 
+  const addToCart = useCartStore((store) => store.actions.addProduct)
+
   // -------------------------------------------------
   // Functions
   // -------------------------------------------------
@@ -44,7 +49,7 @@ const Home: NextPage = () => {
       <ProductCard
         product={product}
         key={product.id}
-        addToCart={() => console.log("ola")}
+        addToCart={addToCart}
       />
     ));
   };
