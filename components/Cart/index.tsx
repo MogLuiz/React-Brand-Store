@@ -9,6 +9,7 @@ import useCartStore from "../../store/Cart";
 
 const Cart: React.FC = () => {
   const open = useCartStore((store) => store.state.open);
+  const toggle = useCartStore((store) => store.actions.toggle);
 
   // -------------------------------------------------
   // Render
@@ -21,7 +22,7 @@ const Cart: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         <h3 className="text-2xl font-medium text-gray-700">Your cart</h3>
-        <button className="text-gray-600 focus:outline-none">
+        <button onClick={() => toggle()} className="text-gray-600 focus:outline-none">
           <svg
             className="h-5 w-5"
             fill="none"
