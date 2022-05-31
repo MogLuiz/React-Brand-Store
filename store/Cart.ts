@@ -1,11 +1,9 @@
+// Packages
 import create from "zustand";
 
-export type TProduct = {
-  id: string;
-  image: string;
-  price: string;
-  title: string;
-};
+// Types
+import { TProduct } from "./types";
+
 interface IUseCartState {
   state: {
     open: boolean;
@@ -17,11 +15,13 @@ interface IUseCartState {
   };
 }
 
+const initialState = {
+  open: false,
+  products: [],
+};
+
 const useCartStore = create<IUseCartState>((set) => ({
-  state: {
-    open: false,
-    products: [],
-  },
+  state: initialState,
   actions: {
     toggle: () =>
       set((store) => ({
@@ -30,7 +30,7 @@ const useCartStore = create<IUseCartState>((set) => ({
     addProduct: (product) =>
       set((store) => ({
         state: {
-          ...store.state,
+          open: true,
           products: [...store.state.products, product],
         },
       })),
