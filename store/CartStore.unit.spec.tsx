@@ -2,7 +2,7 @@
 import { renderHook, act, RenderResult } from "@testing-library/react-hooks";
 
 // Components
-import useCartStore, { IUseCartState } from "./Cart";
+import useCartStore, { IUseCartState, ProductType } from "./Cart";
 
 // Services
 import { makeServer, TServer } from "../services/mirage/server";
@@ -13,7 +13,7 @@ import { TProduct } from "./types";
 describe("Cart Store", () => {
   let server: TServer;
   let result: RenderResult<IUseCartState>;
-  let addProduct: (product: TProduct) => void;
+  let addProduct: <T extends TProduct>(product: T | TProduct | any) => void;
   let toggle: () => void;
 
   beforeEach(() => {
@@ -43,10 +43,19 @@ describe("Cart Store", () => {
     expect(result.current.state.products).toHaveLength(0);
 
     for (const product of products) {
-      act(() => addProduct(product as any));
+      act(() => addProduct(product));
     }
 
     expect(result.current.state.products).toHaveLength(2);
+  });
+
+  it('should not add same product twice', () => {
+    const product = server.create('product')
+
+    act(() => addProduct(product))
+    act(() => addProduct(product))
+
+    expect(result.current.state.products).toHaveLength(1);
   });
 
   it("should toggle open state", () => {
