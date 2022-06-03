@@ -8,7 +8,7 @@ import { CartItem } from "..";
 import useCartStore from "../../store/Cart";
 
 const Cart: React.FC = () => {
-  const open = useCartStore((store) => store.state.open);
+  const { open, products } = useCartStore((store) => store.state);
   const toggle = useCartStore((store) => store.actions.toggle);
 
   // -------------------------------------------------
@@ -22,7 +22,10 @@ const Cart: React.FC = () => {
     >
       <div className="flex items-center justify-between">
         <h3 className="text-2xl font-medium text-gray-700">Your cart</h3>
-        <button onClick={() => toggle()} className="text-gray-600 focus:outline-none">
+        <button
+          onClick={() => toggle()}
+          className="text-gray-600 focus:outline-none"
+        >
           <svg
             className="h-5 w-5"
             fill="none"
@@ -37,7 +40,9 @@ const Cart: React.FC = () => {
         </button>
       </div>
       <hr className="my-3" />
-      <CartItem product={[] as any}/>
+      {products.map((product) => (
+        <CartItem product={product as any} key={product.id} />
+      ))}
       <div className="mt-8">
         <form className="flex items-center justify-center">
           <input
