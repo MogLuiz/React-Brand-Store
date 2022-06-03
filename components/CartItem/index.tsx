@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 
 type TProductItem = {
-  title: string;
-  price: string;
+  id: string;
   image: string;
-  totalProducts: number;
+  price: string;
+  title: string;
 };
 
 type TCartItemProps = {

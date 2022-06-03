@@ -5,7 +5,7 @@ import React from "react";
 import { CartItem } from "..";
 
 // Store
-import useCartStore from "../../store/Cart";
+import useCartStore, { ProductType } from "../../store/Cart";
 
 const Cart: React.FC = () => {
   const { open, products } = useCartStore((store) => store.state);
@@ -40,8 +40,8 @@ const Cart: React.FC = () => {
         </button>
       </div>
       <hr className="my-3" />
-      {products.map((product) => (
-        <CartItem product={product as any} key={product.id} />
+      {products.map((product: ProductType) => (
+        <CartItem product={product} key={product.id} />
       ))}
       <div className="mt-8">
         <form className="flex items-center justify-center">

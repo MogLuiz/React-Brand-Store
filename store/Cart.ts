@@ -39,4 +39,5 @@ const useCartStore = create<IUseCartState>((set) => ({
   },
 }));
 
+export type ProductType = TProduct;
 export default useCartStore;
