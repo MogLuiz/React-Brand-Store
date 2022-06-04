@@ -39,4 +39,10 @@ describe("Cart", () => {
 
     expect(screen.getByTestId("cart")).toBeInTheDocument();
   });
+
+  it('should add css class "hidden" in the component', () => {
+    render(<Cart />);
+
+    expect(screen.getByTestId("cart")).toHaveClass('hidden')
+  });
 });
