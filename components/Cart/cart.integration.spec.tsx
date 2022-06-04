@@ -33,4 +33,10 @@ describe("Cart", () => {
     server.shutdown();
     jest.clearAllMocks();
   });
+
+  it("should render cart", () => {
+    render(<Cart />);
+
+    expect(screen.getByTestId("cart")).toBeInTheDocument();
+  });
 });
