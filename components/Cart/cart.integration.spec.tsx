@@ -17,7 +17,7 @@ describe("Cart", () => {
   let result: RenderResult<IUseCartState>;
   let addProduct: <T extends ProductType>(product: T | ProductType) => void;
   let toggle: () => void;
-  let spy;
+  let spy: jest.SpyInstance<void, []>
   let reset: () => void;
 
   beforeEach(() => {
@@ -54,5 +54,18 @@ describe("Cart", () => {
     render(<Cart />);
 
     expect(screen.getByTestId("cart")).not.toHaveClass('hidden')
+  });
+
+  it('should call store toggle() twice', async () => {
+    render(<Cart />);
+
+    const button = screen.getByTestId('close-button')
+
+    act( async () => {
+        await userEvent.click(button)
+        await userEvent.click(button)
+    })
+
+    expect(spy).toHaveBeenCalledTimes(2)
   });
 });
